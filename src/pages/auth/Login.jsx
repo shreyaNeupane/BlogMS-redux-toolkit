@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import From from './components/From/From'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import STATUSES from '../../globals/status/statuses'
 import { login } from '../../../store/authSlice'
+import { setStatus } from '../../../store/authSlice'
 
 const Login = () => {
   const {user,status} = useSelector((state)=>state.auth)
@@ -12,14 +13,16 @@ const Login = () => {
   const dispatch = useDispatch();
   const handleLogin = (data) => {
     dispatch(login(data));
-//check the status value
-//status -> sucess -> navigate to home page 
+
+  }
+  useEffect(()=>{
+    //check the status value
+    //status -> sucess -> navigate to home page
     if (status === STATUSES.SUCCESS) {
-      return navigate("/");
-    } else {
-      return navigate("/register");
-    }
-  };
+       navigate("/")
+      dispatch(setStatus(null))
+    } 
+  },[status])
   return (
    
 <From type='Login' user={user} onSubmit={handleLogin}/>

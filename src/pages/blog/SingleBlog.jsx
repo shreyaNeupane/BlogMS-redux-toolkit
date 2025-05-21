@@ -1,8 +1,11 @@
 import React from 'react'
 import Layout from './../../components/layout/Layout';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const SingleBlog = () => {
+  const {id} = useParams();
+  const {inputData , deletestatus} = useSelector ((store) => store.blog);
   return (
     <Layout>
       <div className="bg-gray-100 dark:bg-gray-800 py-8 h-screen">
